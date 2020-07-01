@@ -1,5 +1,8 @@
 package com.example.tablayout.locker.edit_locker;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,6 +22,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.tablayout.R;
 import com.example.tablayout.widgets.ConvertHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class EditLockerDialog extends DialogFragment {
     private String mTitle;
@@ -31,8 +37,9 @@ public class EditLockerDialog extends DialogFragment {
 
     private EditLocker itemEditLocker;
     private LockerViewModel lockerViewModel;
+//    private EditLockerDialogListener mListener;
 
-
+    List<EditLocker> listItemLocker = new ArrayList<>();
 
     public EditLockerDialog(@NonNull String mTitle, @NonNull String mNegative, @NonNull String mPositive, EditLocker itemEditLocker) {
         this.mTitle = mTitle;
@@ -48,16 +55,28 @@ public class EditLockerDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_edit_locker, container);
         setUpMap(view);
         setUpClicks();
-
-
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        lockerViewModel = new ViewModelProvider(requireActivity()).get(LockerViewModel.class);
+        lockerViewModel = new ViewModelProvider(getActivity()).get(LockerViewModel.class);
     }
+
+//    public interface EditLockerDialogListener{
+//        void onDialogPositive(EditLockerDialog editLockerDialog);
+//    }
+
+//    @Override
+//    public void onAttach(@NonNull Activity activity) {
+//        super.onAttach(activity);
+//        try{
+//            mListener = (EditLockerDialogListener) activity;
+//        }catch (ClassCastException e){
+//            throw new ClassCastException(activity.toString() + "must implement EditLockerDialogListener" );
+//        }
+//    }
 
     private void setUpMap(View view) {
         txtTitle = view.findViewById(R.id.txtTitle);
@@ -75,6 +94,7 @@ public class EditLockerDialog extends DialogFragment {
         btnOk.setText(mPositive);
 
         btnOk.setOnClickListener(v -> {
+//            mListener.onDialogPositive(EditLockerDialog.this);
             insertData();
         });
 
@@ -90,7 +110,9 @@ public class EditLockerDialog extends DialogFragment {
         setUpBLEAddressMessage(itemEditLocker);
 
         if(itemEditLocker.getValidate()){
-            lockerViewModel.insert(new EditLocker(Integer.parseInt(edtLockerID.getText().toString()), edtBleAddress.getText().toString()));
+            listItemLocker.add(itemEditLocker);
+            lockerViewModel.setListAddLocker(listItemLocker);
+//            lockerViewModel.insert(new EditLocker(Integer.parseInt(edtLockerID.getText().toString()), edtBleAddress.getText().toString()));
         }
     }
 

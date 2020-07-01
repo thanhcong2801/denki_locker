@@ -8,11 +8,14 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.tablayout.locker.AddLockerAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LockerViewModel extends AndroidViewModel implements AddLockerAdapter.ItemLockerListener {
     private LockerRepository mLockerRepository;
     private LiveData<List<EditLocker>> lockers;
+
+    private MutableLiveData<List<EditLocker>> listAddLocker = new MutableLiveData<>();
 
     public LiveData<List<EditLocker>> getLockers() {
         return lockers;
@@ -28,7 +31,13 @@ public class LockerViewModel extends AndroidViewModel implements AddLockerAdapte
         mLockerRepository.insert(editLocker);
     }
 
+    public MutableLiveData<List<EditLocker>> getListAddLocker() {
+        return listAddLocker;
+    }
 
+    public void setListAddLocker(List<EditLocker> listAddLocker) {
+        this.listAddLocker.setValue(listAddLocker);
+    }
 
     @Override
     public void onCheck(int position) {

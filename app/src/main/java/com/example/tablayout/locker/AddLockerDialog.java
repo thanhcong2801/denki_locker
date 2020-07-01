@@ -56,17 +56,10 @@ public class AddLockerDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_add_locker, container);
         setUpOnclick(view);
         setUpRecyclerView(view);
-
-//        final Observer<EditLocker> observer = new Observer<EditLocker>() {
-//            @Override
-//            public void onChanged(EditLocker editLocker) {
-//
-//            }
-//
-//        }
-
         return view;
     }
+
+
 
 
     public interface EventListener{
@@ -108,7 +101,8 @@ public class AddLockerDialog extends DialogFragment {
         RecyclerView rcLockerList = view.findViewById(R.id.rcl_add_locker);
         rcLockerList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         rcLockerList.setHasFixedSize(true);
-        getViewModel().getLockers().observe(getViewLifecycleOwner(), new Observer<List<EditLocker>>() {
+
+        getViewModel().getListAddLocker().observe(getViewLifecycleOwner(), new Observer<List<EditLocker>>() {
             @Override
             public void onChanged(List<EditLocker> editLockers) {
                 mAdapter = new AddLockerAdapter(editLockers, (int position) -> {
@@ -117,11 +111,15 @@ public class AddLockerDialog extends DialogFragment {
                 rcLockerList.setAdapter(mAdapter);
             }
         });
+
+
+
+
     }
 
     private LockerViewModel getViewModel(){
         if(viewModel == null){
-            viewModel = new ViewModelProvider(this).get(LockerViewModel.class);
+            viewModel = new ViewModelProvider(getActivity()).get(LockerViewModel.class);
         }
         return viewModel;
     }

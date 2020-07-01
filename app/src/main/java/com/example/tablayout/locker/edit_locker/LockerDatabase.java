@@ -13,7 +13,7 @@ public abstract class LockerDatabase extends RoomDatabase {
 
     private static volatile LockerDatabase INSTANCE;
 
-    private static final int NUMBER_OFF_THREADS = 2;
+    private static final int NUMBER_OFF_THREADS = 4;
 
     static final ExecutorService databaseExecutor = Executors.newFixedThreadPool(NUMBER_OFF_THREADS);
 
