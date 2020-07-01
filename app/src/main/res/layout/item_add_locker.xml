@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/click_add_locker"
+    android:background="@drawable/underline_white_rectangle"
+    android:paddingTop="@dimen/app_default_padding_x"
+    android:paddingBottom="@dimen/app_default_padding_x"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/edt_locker_id"
+        android:textAppearance="@style/BodyText"
+        android:textColor="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/edt_ble_address"
+        android:textAppearance="@style/Description"
+        android:textColor="@color/color_primary_light"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+
+</LinearLayout>

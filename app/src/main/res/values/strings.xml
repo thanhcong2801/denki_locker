@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">TabLayout</string>
+    <string name="choice">選択</string>
+    <string name="cancel">キャンセル</string>
+    <string name="yes">はい</string>
+    <string name="ok">OK</string>
+    <string name="register">登録</string>
+    <string name="delete">削除</string>
+    <string name="apply">適用</string>
+    <string name="get">取得</string>
+    <string name="warning">警告</string> <!-- 警告 -->
+    <string name="add">追加</string>
+    <string name="error">エラー</string>
+
+    <string name="btn_ok">OK</string>
+    <string name="btn_cancel">Cancel</string>
+
+    <!-- TabLayout   -->
+    <string name="status_tab_title">状態</string>
+    <string name="log_history_tab_title">ログ</string>
+    <string name="setting_tab_title">設定</string>
+    <string name="maintenance">保守</string>
+
+    <!-- Button name   -->
+    <string name="apply_button">適用</string>
+    <string name="reset_button">リセット</string>
+
+    <!-- Confirm dialog   -->
+    <string name="confirm_dialog_title">リセット</string>
+    <string name="confirm_dialog_message">リセットします。宜しいですか？</string>
+    <string name="confirm_dialog_btn_reset">リセット</string>
+    <string name="confirm_dialog_btn_cancel">キャンセル</string>
+
+    <!-- Log list   -->
+    <string name="filter_log">フィルター</string>
+    <string name="select_log">選択</string>
+    <string name="select_all_log">全選択</string>
+
+    <!-- List Of Lockers -->
+    <string name="last_log_status">Last loged at [datetime]</string> <!-- Last loged at {param}-->
+    <string name="device_id">ID [id]</string>   <!-- ID {param} -->
+    <string name="add_locker_id">Locker ID [id]</string>  <!-- Locker ID {param} -->
+    <string name="add_locker_title">電子錠登録</string>
+    <string name="delete_locker_title">電子錠削除</string>
+    <string name="input_locker_title">電子錠入力</string>
+    <string name="edit_locker_title">電子錠編集</string>
+    <string name="locker_id">ロッカーID</string>
+    <string name="ble_address">BLEアドレス</string>
+    <string name="ble_module_address">BLEモジュールアドレス</string>
+    <string name="locker_is_registered">ロッカーIDは既に登録されています。</string>
+    <string name="ble_address_is_hex_number">BLEアドレスはHEX型の12桁で入力してください。</string>
+    <string name="locker_id_is_too_large">ロッカーIDは0000から1000までの範囲で入力してください。</string> <!-- ロッカーIDは{param 1}から{param 2}までの範囲で入力してください。-->
+    <string name="full_of_locker">不要な電子錠を削除してください。</string>
+    <string name="ble_address_is_registered">BLEアドレスは既に登録されています。</string>
+
+
+</resources>

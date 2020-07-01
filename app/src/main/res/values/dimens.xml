@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by HTB95 on 4/15/20 10:24 AM
+  ~ Copyright (c) 2020 KIS-V. All rights reserved.
+  ~ Last modified 4/14/20 4:50 PM
+  -->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Common -->
+    <dimen name="app_default_font_h1">30sp</dimen> <!-- Design: 50sp  -->
+    <dimen name="app_default_font_h2">18sp</dimen> <!-- Design: 30sp  -->
+    <dimen name="app_default_font_h3">16sp</dimen> <!-- Design: 24sp  -->
+    <dimen name="app_default_font_h4">16sp</dimen> <!-- Design: 24sp  -->
+    <dimen name="app_default_font_h5">14sp</dimen> <!-- Design: 20sp  -->
+    <dimen name="app_default_font_h6">10sp</dimen> <!-- Design: 16sp  -->
+
+    <dimen name="app_default_bottom_view_height">56dp</dimen>
+
+    <dimen name="app_default_margin">4dp</dimen>
+    <dimen name="app_default_margin_x">8dp</dimen>
+    <dimen name="app_default_margin_xx">16dp</dimen>
+    <dimen name="app_default_margin_xxx">32dp</dimen>
+
+    <dimen name="app_default_padding_special">2dp</dimen>
+    <dimen name="app_default_padding_special_for_menu_button">80dp</dimen>
+    <dimen name="app_default_padding">4dp</dimen>
+    <dimen name="app_default_padding_x">8dp</dimen>
+    <dimen name="app_default_padding_xx">16dp</dimen>
+    <dimen name="app_default_padding_xxx">32dp</dimen>
+    <dimen name="app_default_padding_4x" tools:keep="@dimen/app_default_padding_4x">64dp</dimen>
+
+    <dimen name="app_default_radius">4dp</dimen>
+    <dimen name="app_default_radius_x">8dp</dimen>
+
+    <dimen name="app_default_stroke">1dp</dimen>
+
+    <dimen name="app_default_action_bar_height">86dp</dimen>
+
+    <dimen name="app_default_value_one">1dp</dimen>
+    <dimen name="app_default_value_zero">0dp</dimen>
+
+    <dimen name="app_default_rectangle_radius">5dp</dimen>
+
+
+    <dimen name="app_default_elevation">4dp</dimen>
+    <dimen name="app_default_elevation_x">8dp</dimen>
+
+    <dimen name="add_delete_dialog_content_height">322dp</dimen>
+
+</resources>

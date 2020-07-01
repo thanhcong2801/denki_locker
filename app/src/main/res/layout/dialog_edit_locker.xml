@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/rl_edit_title"
+        layout="@layout/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <LinearLayout
+        android:id="@+id/lnEdit"
+        android:orientation="vertical"
+        android:layout_below="@id/rl_edit_title"
+        android:layout_margin="@dimen/app_default_margin_xx"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="@string/locker_id"
+            android:textAppearance="@style/Description"
+            android:layout_marginBottom="@dimen/app_default_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/edt_locker_id"
+            android:textAppearance="@style/BodyText"
+            android:textColor="@color/color_text_dark"
+            android:inputType="numberSigned"
+            android:maxLength="4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txt_locker_message"
+            android:visibility="invisible"
+            android:textColor="@color/color_red"
+            android:textAppearance="@style/Description"
+            android:layout_marginBottom="@dimen/app_default_margin_x"
+            android:textSize="@dimen/app_default_font_h6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@string/ble_address"
+            android:textAppearance="@style/Description"
+            android:layout_marginTop="@dimen/app_default_margin_xx"
+            android:layout_marginBottom="@dimen/app_default_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/edt_ble_address"
+            android:textAppearance="@style/BodyText"
+            android:textColor="@color/color_text_dark"
+            android:inputType="text"
+            android:maxLength="12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txt_address_message"
+            android:visibility="invisible"
+            android:textColor="@color/color_red"
+            android:textAppearance="@style/Description"
+            android:layout_marginBottom="@dimen/app_default_margin_x"
+            android:textSize="@dimen/app_default_font_h6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <include
+        layout="@layout/yes_no_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lnEdit"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/app_default_margin_xx" />
+
+
+</RelativeLayout>

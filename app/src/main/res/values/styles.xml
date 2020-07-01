@@ -1,0 +1,66 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    
+    <style name="AppCheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox"/>
+
+    <style name="AppCheckBox.Primary" parent="AppCheckBox">
+        <item name="buttonTint">@drawable/bg_checkbox_primary</item>
+    </style>
+
+    <style name="CaptionText" parent="TextAppearance.AppCompat">
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textSize">@dimen/app_default_font_h2</item>
+<!--        <item name="android:fontFamily">@font/source_sans_pro_bold</item>-->
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SmallButtonStyle" parent="CaptionText">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:paddingStart">@dimen/app_default_padding_xx</item>
+        <item name="android:paddingEnd">@dimen/app_default_padding_xx</item>
+        <item name="android:paddingTop">@dimen/app_default_padding_x</item>
+        <item name="android:paddingBottom">@dimen/app_default_padding_x</item>
+    </style>
+
+    <style name="Headline" parent="TextAppearance.AppCompat">
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textSize">@dimen/app_default_font_h1</item>
+<!--        <item name="android:fontFamily">@font/source_sans_pro_bold</item>-->
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+    </style>
+
+    <style name="BodyText" parent="TextAppearance.AppCompat">
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textSize">@dimen/app_default_font_h4</item>
+<!--        <item name="android:fontFamily">@font/source_sans_pro</item>-->
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+    </style>
+
+    <style name="Description" parent="TextAppearance.AppCompat">
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textSize">@dimen/app_default_font_h5</item>
+<!--        <item name="android:fontFamily">@font/source_sans_pro</item>-->
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+    </style>
+
+
+</resources>

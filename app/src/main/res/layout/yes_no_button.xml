@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_gravity="bottom|end"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/txtCancel"
+        android:textColor="@color/color_primary"
+        android:maxLines="1"
+        style="@style/SmallButtonStyle"
+        android:gravity="center"
+        android:layout_marginEnd="@dimen/app_default_margin_x"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+    <Button
+        android:id="@+id/btnOk"
+        android:textColor="@android:color/white"
+        android:background="@color/color_primary"
+        android:maxLines="1"
+        style="@style/SmallButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
