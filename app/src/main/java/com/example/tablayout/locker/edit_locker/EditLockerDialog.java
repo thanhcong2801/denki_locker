@@ -2,7 +2,6 @@ package com.example.tablayout.locker.edit_locker;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,6 +24,19 @@ import com.example.tablayout.widgets.ConvertHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+enum LockerIdStatus {
+    INVALID,
+    MAX,
+    EXIST,
+    VALID
+}
+
+enum LockerBLEAddress {
+    INVALID,
+    EXIST,
+    VALID
+}
+
 
 public class EditLockerDialog extends DialogFragment {
     private String mTitle;
@@ -36,10 +48,8 @@ public class EditLockerDialog extends DialogFragment {
     private Button btnOk;
 
     private EditLocker itemEditLocker;
+    private List<EditLocker> listEditLocker = new ArrayList<>();
     private LockerViewModel lockerViewModel;
-//    private EditLockerDialogListener mListener;
-
-    List<EditLocker> listItemLocker = new ArrayList<>();
 
     public EditLockerDialog(@NonNull String mTitle, @NonNull String mNegative, @NonNull String mPositive, EditLocker itemEditLocker) {
         this.mTitle = mTitle;
@@ -64,20 +74,6 @@ public class EditLockerDialog extends DialogFragment {
         lockerViewModel = new ViewModelProvider(getActivity()).get(LockerViewModel.class);
     }
 
-//    public interface EditLockerDialogListener{
-//        void onDialogPositive(EditLockerDialog editLockerDialog);
-//    }
-
-//    @Override
-//    public void onAttach(@NonNull Activity activity) {
-//        super.onAttach(activity);
-//        try{
-//            mListener = (EditLockerDialogListener) activity;
-//        }catch (ClassCastException e){
-//            throw new ClassCastException(activity.toString() + "must implement EditLockerDialogListener" );
-//        }
-//    }
-
     private void setUpMap(View view) {
         txtTitle = view.findViewById(R.id.txtTitle);
         edtLockerID = view.findViewById(R.id.edt_locker_id);
@@ -88,14 +84,13 @@ public class EditLockerDialog extends DialogFragment {
         btnOk = view.findViewById(R.id.btnOk);
     }
 
-    private void setUpClicks(){
+    private void setUpClicks() {
         txtTitle.setText(mTitle);
         txtCancel.setText(mNegative);
         btnOk.setText(mPositive);
 
         btnOk.setOnClickListener(v -> {
-//            mListener.onDialogPositive(EditLockerDialog.this);
-            insertData();
+            confirmLocker();
         });
 
         txtCancel.setOnClickListener(v -> {
@@ -103,24 +98,27 @@ public class EditLockerDialog extends DialogFragment {
         });
     }
 
-    private void insertData() {
+    private void confirmLocker() {
         validateID();
         validateAddress();
+//        setUpLockerID(itemEditLocker);
+//        setUpBLEAddress(itemEditLocker);
         setUpLockerIDMessage(itemEditLocker);
         setUpBLEAddressMessage(itemEditLocker);
 
-        if(itemEditLocker.getValidate()){
-            listItemLocker.add(itemEditLocker);
-            lockerViewModel.setListAddLocker(listItemLocker);
+        if (itemEditLocker.getValidate()) {
+            lockerViewModel.addLocker(itemEditLocker);
+            dismiss();
 //            lockerViewModel.insert(new EditLocker(Integer.parseInt(edtLockerID.getText().toString()), edtBleAddress.getText().toString()));
         }
     }
 
-    private void setUpLockerID(EditLocker itemEditLocker){
+
+    private void setUpLockerID(EditLocker itemEditLocker) {
         int lockerID = itemEditLocker.getLockerID();
-        if(lockerID == 0){
+        if (lockerID == 0) {
             edtLockerID.setText("");
-        }else{
+        } else {
             edtLockerID.setText(ConvertHelper.numberToStringID(lockerID));
         }
         edtLockerID.addTextChangedListener(new TextWatcher() {
@@ -145,8 +143,8 @@ public class EditLockerDialog extends DialogFragment {
 
     }
 
-    private void setUpBLEAddress(EditLocker itemEditLocker){
-        edtBleAddress.setText(itemEditLocker.getBLEMessage());
+    private void setUpBLEAddress(EditLocker itemEditLocker) {
+        edtBleAddress.setText(itemEditLocker.getBLEAddress());
         edtBleAddress.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -160,100 +158,118 @@ public class EditLockerDialog extends DialogFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String address = edtBleAddress.getText().toString();
-                itemEditLocker.setBLEAddress(address);
+                itemEditLocker.setBLEAddress(edtBleAddress.getText().toString());
             }
         });
         edtBleAddress.setImeOptions(EditorInfo.IME_ACTION_DONE);
     }
 
 
-
-    private void setUpLockerIDMessage(EditLocker itemEditLocker){
-        String message = itemEditLocker.getLockerMessage();
-        if(message.isEmpty()){
+    private void setUpLockerIDMessage(EditLocker itemEditLocker) {
+        String message = itemEditLocker.getLockerIDMessage();
+        if (message.isEmpty()) {
             txtLockerIDMessage.setText("");
             txtLockerIDMessage.setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             txtLockerIDMessage.setText(message);
             txtLockerIDMessage.setVisibility(View.VISIBLE);
         }
     }
 
-    private void setUpBLEAddressMessage(EditLocker itemEditLocker){
+    private void setUpBLEAddressMessage(EditLocker itemEditLocker) {
         String message = itemEditLocker.getBLEMessage();
-        if(message.isEmpty()){
+        if (message.isEmpty()) {
             txtBleAddressMessage.setText("");
             txtBleAddressMessage.setVisibility(View.INVISIBLE);
-        }else {
+        } else {
             txtBleAddressMessage.setText(message);
             txtBleAddressMessage.setVisibility(View.VISIBLE);
         }
     }
 
     private boolean isRegisterID(int id) {
-        int lockerID = itemEditLocker.getLockerID();
-        if (lockerID == id) {
-            return true;
+        for (int index = 0; index < listEditLocker.size(); index++) {
+            EditLocker editLocker = listEditLocker.get(index);
+            if (editLocker.getLockerID() == id) {
+                return true;
+            }
         }
         return false;
     }
 
     private boolean isRegisterAddress(String address) {
-        String bleAddress = itemEditLocker.getBLEAddress();
-        if (bleAddress.equalsIgnoreCase(address)) {
-            return true;
+        for (int index = 0; index < listEditLocker.size(); index++) {
+            EditLocker editLocker = listEditLocker.get(index);
+            if (editLocker.getBLEAddress().equalsIgnoreCase(address)) {
+                return true;
+            }
         }
         return false;
     }
 
-    private void validateID(){
+    private void validateID() {
         String id = edtLockerID.getText().toString();
-        if(!id.isEmpty()){
+        if (!id.isEmpty()) {
             int lockerID = Integer.parseInt(id);
-            if (getContext() != null) {
-                if (lockerID > 1000 || lockerID < 0) {
-                    String messageError = getContext().getString(R.string.locker_id_is_too_large);
-                    itemEditLocker.setLockerMessage(messageError);
+            switch (getLockerIdStatus(lockerID)) {
+                case VALID:
+                    itemEditLocker.setLockerIDMessage("");
+                    itemEditLocker.setValidate(true);
+                    break;
+                case MAX:
+                    itemEditLocker.setLockerIDMessage(getString(R.string.full_of_locker));
                     itemEditLocker.setValidate(false);
-                } else {
-                    if (isRegisterID(lockerID)) {
-                        String messageError = getContext().getString(R.string.locker_is_registered);
-                        itemEditLocker.setLockerMessage(messageError);
-                        itemEditLocker.setValidate(false);
-                    } else {
-                        itemEditLocker.setLockerMessage("");
-                        itemEditLocker.setValidate(true);
-                    }
-                }
+                    break;
+                case EXIST:
+                    itemEditLocker.setLockerIDMessage(getString(R.string.locker_is_registered));
+                    itemEditLocker.setValidate(false);
+                    break;
+                case INVALID:
+                    itemEditLocker.setLockerIDMessage(getString(R.string.locker_id_is_too_large));
+                    itemEditLocker.setValidate(false);
+                    break;
+                default:
+                    break;
             }
-        }else{
-            itemEditLocker.setLockerMessage(getString(R.string.locker_id_is_too_large));
+        } else {
+            itemEditLocker.setLockerIDMessage(getString(R.string.locker_id_is_too_large));
+            itemEditLocker.setValidate(false);
         }
 
     }
 
-    private void validateAddress(){
+    private void validateAddress() {
         String bleAddress = edtBleAddress.getText().toString();
-        if(getContext() != null){
-            if (bleAddress.isEmpty() || bleAddress.length() < 12) {
-                String messageError = getContext().getString(R.string.ble_address_is_hex_number);
-                itemEditLocker.setBLEMessage(messageError);
+        switch (getLLockerBLEAddress(bleAddress)) {
+            case INVALID:
+                itemEditLocker.setBLEMessage(getString(R.string.ble_address_is_hex_number));
                 itemEditLocker.setValidate(false);
-            } else {
-                if (isRegisterAddress(bleAddress)) {
-                    String messageError = getContext().getString(R.string.ble_address_is_registered);
-                    itemEditLocker.setBLEMessage(messageError);
-                    itemEditLocker.setValidate(false);
-                } else {
-                    if (bleAddress.length() == 12) {
-                        itemEditLocker.setBLEMessage("");
-                        itemEditLocker.setValidate(true);
-                        itemEditLocker.setBLEAddress(bleAddress);
-                    }
-                }
-            }
+                break;
+            case EXIST:
+                itemEditLocker.setBLEMessage(getString(R.string.ble_address_is_registered));
+                itemEditLocker.setValidate(false);
+                break;
+            case VALID:
+                itemEditLocker.setBLEMessage("");
+                itemEditLocker.setValidate(true);
+                itemEditLocker.setBLEAddress(bleAddress);
+                break;
+            default:
+                break;
         }
+    }
+
+    private LockerIdStatus getLockerIdStatus(int id) {
+        if (id > 1000 || id < 0) return LockerIdStatus.INVALID;
+        if (id == 1000) return LockerIdStatus.MAX;
+        if (isRegisterID(id)) return LockerIdStatus.EXIST;
+        return LockerIdStatus.VALID;
+    }
+
+    private LockerBLEAddress getLLockerBLEAddress(String bleAddress) {
+        if (bleAddress.isEmpty() || bleAddress.length() < 12) return LockerBLEAddress.INVALID;
+        if (isRegisterAddress(bleAddress)) return LockerBLEAddress.EXIST;
+        return LockerBLEAddress.VALID;
     }
 
 

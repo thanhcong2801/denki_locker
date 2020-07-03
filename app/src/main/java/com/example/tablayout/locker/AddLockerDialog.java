@@ -20,11 +20,12 @@ import com.example.tablayout.R;
 import com.example.tablayout.locker.edit_locker.EditLocker;
 import com.example.tablayout.locker.edit_locker.EditLockerDialog;
 import com.example.tablayout.locker.edit_locker.LockerViewModel;
+import com.example.tablayout.widgets.ConvertHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddLockerDialog extends DialogFragment {
+public class AddLockerDialog extends DialogFragment{
     private String mTitle;
     private String mTextAdd;
     private String mNegative;
@@ -58,7 +59,6 @@ public class AddLockerDialog extends DialogFragment {
         setUpRecyclerView(view);
         return view;
     }
-
 
 
 
@@ -106,14 +106,17 @@ public class AddLockerDialog extends DialogFragment {
             @Override
             public void onChanged(List<EditLocker> editLockers) {
                 mAdapter = new AddLockerAdapter(editLockers, (int position) -> {
-
+                    EditLockerDialog dialog = new EditLockerDialog(
+                            getString(R.string.input_locker_title),
+                            getString(R.string.cancel),
+                            getString(R.string.ok),
+                            new EditLocker(editLockers.get(position).getLockerID(), editLockers.get(position).getBLEAddress())
+                    );
+                    dialog.show(getParentFragmentManager(), "dialog_edit_locker");
                 });
                 rcLockerList.setAdapter(mAdapter);
             }
         });
-
-
-
 
     }
 

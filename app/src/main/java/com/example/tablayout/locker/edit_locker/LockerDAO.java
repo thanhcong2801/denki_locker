@@ -13,6 +13,6 @@ public interface LockerDAO {
     @Insert
     void insertLocker(EditLocker editLocker);
 
-    @Query("Select locker_id, ble_address from edit_locker")
+    @Query("Select * from edit_locker")
     LiveData<List<EditLocker>> getData();
 }

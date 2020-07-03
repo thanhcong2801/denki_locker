@@ -17,7 +17,7 @@ public class LockerRepository {
         mAllLockers = mLockerDAO.getData();
     }
 
-    LiveData<List<EditLocker>> getAllLockers(){
+    LiveData<List<EditLocker>> getAllLocker(){
         return mAllLockers;
 
     }

@@ -9,16 +9,14 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "edit_locker")
 public class EditLocker {
     @PrimaryKey
-    @NonNull
     @ColumnInfo(name = "locker_id")
     private int mLockerID;
 
-    @NonNull
     @ColumnInfo(name = "ble_address")
     private String mBLEAddress;
 
 
-    private String mLockerMessage = "";
+    private String mLockerIDMessage = "";
     private String mBLEMessage = "";
     private Boolean isValidate = false;
 
@@ -35,12 +33,12 @@ public class EditLocker {
         this.mLockerID = mLockerID;
     }
 
-    public String getLockerMessage() {
-        return mLockerMessage;
+    public String getLockerIDMessage() {
+        return mLockerIDMessage;
     }
 
-    public void setLockerMessage(String mLockerMessage) {
-        this.mLockerMessage = mLockerMessage;
+    public void setLockerIDMessage(String mLockerMessage) {
+        this.mLockerIDMessage = mLockerMessage;
     }
 
     public String getBLEAddress() {
@@ -65,7 +63,7 @@ public class EditLocker {
 
     public void setValidate(Boolean validate) {
         if(validate){
-            if(getLockerMessage().isEmpty() && getBLEMessage().isEmpty()){
+            if(getLockerIDMessage().isEmpty() && getBLEMessage().isEmpty()){
                  isValidate = true;
             }
         }else {

@@ -42,7 +42,7 @@ public class AddLockerAdapter extends RecyclerView.Adapter<AddLockerAdapter.View
 
     }
 
-    public  AddLockerAdapter(List<EditLocker> listLocker, ItemLockerListener listener){
+    public AddLockerAdapter(List<EditLocker> listLocker, ItemLockerListener listener){
         this.listAddLocker = listLocker;
         this.itemLockerListener = listener;
     }
