@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "edit_locker")
 public class EditLocker {
+
+    private int checkID = -1;
     @PrimaryKey
     @ColumnInfo(name = "locker_id")
     private int mLockerID;
@@ -23,6 +25,14 @@ public class EditLocker {
     public EditLocker(int mLockerID, String mBLEAddress) {
         this.mLockerID = mLockerID;
         this.mBLEAddress = mBLEAddress;
+    }
+
+    public int getCheckID() {
+        return checkID;
+    }
+
+    public void setCheckID(int checkID) {
+        this.checkID = checkID;
     }
 
     public int getLockerID() {

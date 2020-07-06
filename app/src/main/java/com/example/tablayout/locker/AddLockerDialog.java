@@ -1,5 +1,6 @@
 package com.example.tablayout.locker;
 
+import android.app.AppOpsManager;
 import android.app.Application;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,10 +32,11 @@ public class AddLockerDialog extends DialogFragment{
     private String mNegative;
     private String mPositive;
     private EventListener listener;
-    private List<EditLocker> editLockerList = new ArrayList<>();
+
 
     private LockerViewModel viewModel;
     private AddLockerAdapter mAdapter;
+
 
     public AddLockerDialog(@NonNull String mTitle, @NonNull String mTextAdd, @NonNull String mNegative, @NonNull String mPositive) {
         this.mTitle = mTitle;
@@ -106,17 +108,21 @@ public class AddLockerDialog extends DialogFragment{
             @Override
             public void onChanged(List<EditLocker> editLockers) {
                 mAdapter = new AddLockerAdapter(editLockers, (int position) -> {
-                    EditLockerDialog dialog = new EditLockerDialog(
-                            getString(R.string.input_locker_title),
-                            getString(R.string.cancel),
-                            getString(R.string.ok),
-                            new EditLocker(editLockers.get(position).getLockerID(), editLockers.get(position).getBLEAddress())
-                    );
-                    dialog.show(getParentFragmentManager(), "dialog_edit_locker");
+                    if(editLockers.get(position).getLockerID() != getViewModel().getCheckID()){
+                        EditLockerDialog dialog = new EditLockerDialog(
+                                getString(R.string.input_locker_title),
+                                getString(R.string.cancel),
+                                getString(R.string.ok),
+                                new EditLocker(editLockers.get(position).getLockerID(), editLockers.get(position).getBLEAddress())
+                        );
+                        dialog.show(getParentFragmentManager(), "dialog_edit_locker");
+                    }
                 });
                 rcLockerList.setAdapter(mAdapter);
             }
         });
+
+
 
     }
 
@@ -137,4 +143,6 @@ public class AddLockerDialog extends DialogFragment{
         );
         dialog.show(getParentFragmentManager(), "dialog_edit_locker");
     }
+
+
 }

@@ -48,7 +48,6 @@ public class EditLockerDialog extends DialogFragment {
     private Button btnOk;
 
     private EditLocker itemEditLocker;
-    private List<EditLocker> listEditLocker = new ArrayList<>();
     private LockerViewModel lockerViewModel;
 
     public EditLockerDialog(@NonNull String mTitle, @NonNull String mNegative, @NonNull String mPositive, EditLocker itemEditLocker) {
@@ -90,7 +89,7 @@ public class EditLockerDialog extends DialogFragment {
         btnOk.setText(mPositive);
 
         btnOk.setOnClickListener(v -> {
-            confirmLocker();
+            confirmLocker(itemEditLocker);
         });
 
         txtCancel.setOnClickListener(v -> {
@@ -98,21 +97,16 @@ public class EditLockerDialog extends DialogFragment {
         });
     }
 
-    private void confirmLocker() {
-        validateID();
-        validateAddress();
-//        setUpLockerID(itemEditLocker);
-//        setUpBLEAddress(itemEditLocker);
+    private void confirmLocker(EditLocker itemEditLocker) {
+        validateID(itemEditLocker);
+        validateAddress(itemEditLocker);
         setUpLockerIDMessage(itemEditLocker);
         setUpBLEAddressMessage(itemEditLocker);
-
         if (itemEditLocker.getValidate()) {
             lockerViewModel.addLocker(itemEditLocker);
             dismiss();
-//            lockerViewModel.insert(new EditLocker(Integer.parseInt(edtLockerID.getText().toString()), edtBleAddress.getText().toString()));
         }
     }
-
 
     private void setUpLockerID(EditLocker itemEditLocker) {
         int lockerID = itemEditLocker.getLockerID();
@@ -188,6 +182,7 @@ public class EditLockerDialog extends DialogFragment {
     }
 
     private boolean isRegisterID(int id) {
+        List<EditLocker> listEditLocker = new ArrayList<>();
         for (int index = 0; index < listEditLocker.size(); index++) {
             EditLocker editLocker = listEditLocker.get(index);
             if (editLocker.getLockerID() == id) {
@@ -198,6 +193,7 @@ public class EditLockerDialog extends DialogFragment {
     }
 
     private boolean isRegisterAddress(String address) {
+        List<EditLocker> listEditLocker = new ArrayList<>();
         for (int index = 0; index < listEditLocker.size(); index++) {
             EditLocker editLocker = listEditLocker.get(index);
             if (editLocker.getBLEAddress().equalsIgnoreCase(address)) {
@@ -207,12 +203,13 @@ public class EditLockerDialog extends DialogFragment {
         return false;
     }
 
-    private void validateID() {
+    private EditLocker validateID(EditLocker itemEditLocker) {
         String id = edtLockerID.getText().toString();
         if (!id.isEmpty()) {
             int lockerID = Integer.parseInt(id);
             switch (getLockerIdStatus(lockerID)) {
                 case VALID:
+                    itemEditLocker.setLockerID(lockerID);
                     itemEditLocker.setLockerIDMessage("");
                     itemEditLocker.setValidate(true);
                     break;
@@ -235,10 +232,10 @@ public class EditLockerDialog extends DialogFragment {
             itemEditLocker.setLockerIDMessage(getString(R.string.locker_id_is_too_large));
             itemEditLocker.setValidate(false);
         }
-
+        return itemEditLocker;
     }
 
-    private void validateAddress() {
+    private EditLocker validateAddress(EditLocker itemEditLocker) {
         String bleAddress = edtBleAddress.getText().toString();
         switch (getLLockerBLEAddress(bleAddress)) {
             case INVALID:
@@ -257,6 +254,7 @@ public class EditLockerDialog extends DialogFragment {
             default:
                 break;
         }
+        return itemEditLocker;
     }
 
     private LockerIdStatus getLockerIdStatus(int id) {

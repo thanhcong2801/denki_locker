@@ -1,5 +1,6 @@
 package com.example.tablayout.locker;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddLockerAdapter extends RecyclerView.Adapter<AddLockerAdapter.ViewHolder> {
-    private List<EditLocker> listAddLocker;
+    private List<EditLocker> listLocker;
     private ItemLockerListener itemLockerListener;
 
     public interface ItemLockerListener{
@@ -42,8 +43,8 @@ public class AddLockerAdapter extends RecyclerView.Adapter<AddLockerAdapter.View
 
     }
 
-    public AddLockerAdapter(List<EditLocker> listLocker, ItemLockerListener listener){
-        this.listAddLocker = listLocker;
+    public AddLockerAdapter(List<EditLocker> listAddLocker, ItemLockerListener listener){
+        this.listLocker = listAddLocker;
         this.itemLockerListener = listener;
     }
 
@@ -56,7 +57,7 @@ public class AddLockerAdapter extends RecyclerView.Adapter<AddLockerAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull AddLockerAdapter.ViewHolder holder, int position) {
-        holder.bind(listAddLocker.get(position), v -> {
+        holder.bind(listLocker.get(position), v -> {
             if(itemLockerListener != null){
                 itemLockerListener.onCheck(position);
             }
@@ -65,7 +66,7 @@ public class AddLockerAdapter extends RecyclerView.Adapter<AddLockerAdapter.View
 
     @Override
     public int getItemCount() {
-        return listAddLocker.size();
+        return listLocker.size();
     }
 
 

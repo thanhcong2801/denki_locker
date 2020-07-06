@@ -12,11 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LockerViewModel extends AndroidViewModel implements AddLockerAdapter.ItemLockerListener {
-    List<EditLocker> listLocker = new ArrayList<>();
-
+    private static int checkID = -1;
+    private List<EditLocker> listLocker = new ArrayList<>();
     private LiveData<List<EditLocker>> lockers;
     private LockerRepository mLockerRepository;
     private MutableLiveData<List<EditLocker>> listAddLocker = new MutableLiveData<>();
+
+    public int getCheckID() {
+        return checkID;
+    }
 
     public LiveData<List<EditLocker>> getLocker() {
         return lockers;
@@ -37,11 +41,11 @@ public class LockerViewModel extends AndroidViewModel implements AddLockerAdapte
     }
 
 
-
     public void addLocker(EditLocker locker) {
         listLocker.add(locker);
         this.listAddLocker.setValue(listLocker);
     }
+
 
     @Override
     public void onCheck(int position) {
